@@ -1,0 +1,4 @@
+.puzzleButtons {
+    display: flex;
+    flex-direction: column;
+}
