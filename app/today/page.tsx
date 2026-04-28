@@ -15,10 +15,11 @@ export default function Today() {
     const [isGuessed, setIsGuessed] = useState<boolean>(false);
 
     const bookTitle : string = book?.title;
-
+    const displayBooks = searchRes.length !== 0;
     const level : Level = isGuessed ? 6 : (guesses.length as Level);
 
     async function getBookNames(query: string) {
+        if (query.length <= 3) return;
         try {
             const bookNames : string[] = await searchBooks(query);
             setSearchRes(bookNames);
@@ -33,6 +34,8 @@ export default function Today() {
             setIsGuessed(true);
         }
         setGuesses([...guesses, guess]);
+        setCurrentGuess("");
+        setSearchRes([]);
     }
 
     useEffect(() => {
@@ -55,22 +58,31 @@ export default function Today() {
     );
 
     return (
-        <div>
-            {isGuessed && <div>You Win!!</div>}
-            {book && 
-                <div><img src={book.covers[level].imageUrl}/></div>
-                    
-            }
-            <input list="books" type="text" value={currentGuess} onChange={(e) => {const val = e.target.value; setCurrentGuess(val); debouncedSearch(val)}}></input>
-            <div id="books">
-                {searchRes.map((title: string) => {
-                    return <div onClick={() => checkGuess(title)} key={title}>{title}</div>
-                })}
-            </div>
-            <div className={styles.puzzleButtons}>
-                {guesses?.map(guess => {
-                    return <div key={guess}>{guess}</div>
-                })}
+        <div className={styles.puzzleContainer}>
+            <div className={styles.puzzle}>
+                {isGuessed && <div>You Win!!</div>}
+                {book && 
+                    <div><img src={book.covers[level].imageUrl}/></div>
+                        
+                }
+                <div className={styles.guessContainer}>
+                    <input className={styles.guessInput} list="books" type="text" value={currentGuess} onChange={(e) => {const val = e.target.value; setCurrentGuess(val); debouncedSearch(val)}}></input>
+                    <button onClick={() => checkGuess(currentGuess)} className={styles.guessButton}>Submit</button>
+                </div>
+                {displayBooks && 
+                    <div className={styles.bookNames}>
+                        {searchRes.map((title: string) => {
+                            return <div  className={styles.book} onClick={() => checkGuess(title)} key={title}>{title}</div>
+                        })}
+                    </div>
+                }
+                
+                <div className={styles.puzzleButtons}>
+                    {guesses?.map(guess => {
+                        return <div key={guess}>{guess}</div>
+                    })}
+                </div>
+                <div>{6 - level} Guesses left!!</div>
             </div>
         </div>
     )

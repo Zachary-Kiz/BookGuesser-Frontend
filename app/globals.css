@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  --background: #FFF8F0 !important;
   --foreground: #171717;
+  --medium-brown : #8C5A3C;
+  --light-brown: #C08552;
+  --dark-brown: #4B2E2B;
 }
 
 @theme inline {
