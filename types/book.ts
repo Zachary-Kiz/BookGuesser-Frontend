@@ -10,3 +10,5 @@ export interface Book {
     releaseYear: number;
     covers: Array<Cover>;
 }
+
+export type Level = 0 | 1 | 2 | 3 | 4 | 5 | 6;

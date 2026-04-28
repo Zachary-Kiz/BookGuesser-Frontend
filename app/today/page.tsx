@@ -1,8 +1,9 @@
 "use client"
 
-import {getTodayPuzzle} from "@/api/todayPuzzle";
+import {getTodayPuzzle, searchBooks, debounce} from "@/api/todayPuzzle";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./Puzzle.module.css"
+import { Level } from "@/types/book";
 
 export default function Today() {
 
@@ -15,30 +16,16 @@ export default function Today() {
 
     const bookTitle : string = book?.title;
 
-    const level : number = isGuessed ? 6 : guesses.length;
-
-    const debounce = <T extends unknown[]>(
-        callback: (...args: T) => void,
-        delay: number,
-        ) => {
-            let timeoutTimer: ReturnType<typeof setTimeout>;
-            
-            return (...args: T) => {
-                clearTimeout(timeoutTimer);
-            
-                timeoutTimer = setTimeout(() => {
-                callback(...args);
-                }, delay);
-            };
-        };
+    const level : Level = isGuessed ? 6 : (guesses.length as Level);
 
     async function getBookNames(query: string) {
-        const res = await fetch(`https://openlibrary.org/search.json?q=${query}&limit=10`, {
-        })
-        const resJson = await res.json();
-        const resItems : string[] = resJson['docs']?.map((item: { title: any; }) => item?.title) || [];
-        const removeDup : string[] = [...new Set(resItems)];
-        setSearchRes(removeDup);
+        try {
+            const bookNames : string[] = await searchBooks(query);
+            setSearchRes(bookNames);
+        } catch (err) {
+            setError(err)
+        }
+        
     }
 
     function checkGuess(guess : string) : void {
@@ -63,7 +50,7 @@ export default function Today() {
         () =>
             debounce((val: string) => {
                 getBookNames(val);
-            }, 150),
+            }, 200),
         []
     );
 

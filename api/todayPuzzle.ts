@@ -26,3 +26,45 @@ export async function getTodayPuzzle(): Promise<Book> {
         throw err;
     }
 }
+
+export async function searchBooks(query: string): Promise<string[]> {
+    try {
+        const res = await fetch(`https://openlibrary.org/search.json?q=${query}&limit=10`);
+
+        if (!res.ok) {
+            let message = `Request failed: ${res.status}`;
+
+        try {
+            const errorBody = await res.text();
+            message = errorBody || message;
+        } catch {}
+
+        throw new Error(message);
+        }
+
+        const resJson = await res.json();
+        const resItems : string[] = resJson['docs']?.map((item: { title: any; }) => item?.title) || [];
+        const removeDup : string[] = [...new Set(resItems)];
+
+        return removeDup;
+    } catch (err) {
+        console.error("searching books error:", err);
+
+        throw err;
+    }
+}
+
+ export const debounce = <T extends unknown[]>(
+        callback: (...args: T) => void,
+        delay: number,
+        ) => {
+            let timeoutTimer: ReturnType<typeof setTimeout>;
+            
+            return (...args: T) => {
+                clearTimeout(timeoutTimer);
+            
+                timeoutTimer = setTimeout(() => {
+                callback(...args);
+                }, delay);
+            };
+        };
