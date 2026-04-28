@@ -1,0 +1,12 @@
+.check {
+  color: var(--dark-brown);
+  font-size: 1.2em;
+}
+
+.ex {
+  color: var(--dark-brown);
+  font-weight: bold;
+  font-size: 1.7em;
+  height: fit-content;
+  padding-top: 3px;
+}

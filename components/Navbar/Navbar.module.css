@@ -1,5 +1,17 @@
 .navContainer {
+    display: flex;
+    flex-direction: row;
+    padding-left: 4rem;
     font-family: 'Merriweather';
     font-size:50px;
     box-shadow: 1px 1px 1px 1px gray;
+    justify-content: space-between;
+}
+
+.navLink {
+    transition: 0.1s color ease-in-out;
+}
+
+.navLink:hover {
+    color: var(--medium-brown);
 }

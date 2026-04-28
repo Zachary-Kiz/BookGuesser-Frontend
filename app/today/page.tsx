@@ -4,6 +4,7 @@ import {getTodayPuzzle, searchBooks, debounce} from "@/api/todayPuzzle";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./Puzzle.module.css"
 import { Level } from "@/types/book";
+import GuessResult from "@/components/GuessResult/GuessResult";
 
 export default function Today() {
 
@@ -79,7 +80,7 @@ export default function Today() {
                 
                 <div className={styles.puzzleButtons}>
                     {guesses?.map(guess => {
-                        return <div key={guess}>{guess}</div>
+                        return <GuessResult book={book.title} guess={guess}/>
                     })}
                 </div>
                 <div>{6 - level} Guesses left!!</div>
