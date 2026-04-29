@@ -27,6 +27,31 @@ export async function getTodayPuzzle(): Promise<Book> {
     }
 }
 
+export async function getPastPuzzle(id : string): Promise<Book> {
+    try {
+        const res = await fetch(`http://localhost:8080/puzzle/${id}`, {
+        cache: "no-store",
+        });
+
+        if (!res.ok) {
+            let message = `Request failed: ${res.status}`;
+
+        try {
+            const errorBody = await res.text();
+            message = errorBody || message;
+        } catch {}
+
+        throw new Error(message);
+        }
+
+        return await res.json();
+    } catch (err) {
+        console.error("getPastPuzzle error:", err);
+
+        throw err;
+    }
+}
+
 export async function searchBooks(query: string): Promise<string[]> {
     try {
         const res = await fetch(`https://openlibrary.org/search.json?q=${query}&limit=10`);

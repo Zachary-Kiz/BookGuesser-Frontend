@@ -14,7 +14,7 @@
 
 .puzzle {
     background-color: var(--light-brown);
-    padding: 5px
+    padding: 5px;
 }
 
 .guessContainer {
