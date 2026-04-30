@@ -1,3 +1,6 @@
+import { HintLevels } from "@/types/book";
+import styles from "./BookInfo.module.css"
+
 interface Info {
     level: number;
     name: string;
@@ -5,10 +8,11 @@ interface Info {
 }
 
 export default function BookInfo({level, name, value} : Info) {
+    const isViewable = level > HintLevels[name];
     return (
-        <div className="flex flex-row gap-1">
+        <div className={`${styles.bookInfo} ${isViewable && styles.isVis}`}>
             <div>{name}:</div>
-            <div>{level > 2 ? value : "???"}</div>
+            <div>{isViewable ? value : "???"}</div>
         </div>
     )
 }

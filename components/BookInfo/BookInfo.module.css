@@ -1,0 +1,14 @@
+.bookInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid var(--dark-brown);
+    border-radius: 5px;
+}
+
+.isVis {
+    color: white;
+    background-color: var(--dark-brown);
+}

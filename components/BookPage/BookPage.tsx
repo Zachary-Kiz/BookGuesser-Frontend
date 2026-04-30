@@ -58,7 +58,8 @@ export default function BookPage({book} : BookPageType) {
                 {book && 
                     <div>
                         <img src={book.covers[level].imageUrl}/>
-                        <div className="flex flex-row gap-3">
+                        <div className="flex flex-row gap-3 justify-center">
+                            <BookInfo level={level} name="Genre" value={book.genre}/>
                             <BookInfo level={level} name="Year" value={book.releaseYear}/>
                             <BookInfo level={level} name="Author" value={book.author}/>
                         </div>
@@ -95,7 +96,7 @@ export default function BookPage({book} : BookPageType) {
                                 return <GuessResult key={`${book.title}_${index}`} guess={guess}/>
                             })}
                         </div>
-                        <div>{6 - level} Guesses left!!</div>
+                        <div className="w-full flex justify-center mt-3">{6 - level} Guesses left!!</div>
                     </div>
                 }
             </div>
