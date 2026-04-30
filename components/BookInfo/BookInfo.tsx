@@ -1,7 +1,7 @@
 interface Info {
     level: number;
     name: string;
-    value: string;
+    value: string | number;
 }
 
 export default function BookInfo({level, name, value} : Info) {

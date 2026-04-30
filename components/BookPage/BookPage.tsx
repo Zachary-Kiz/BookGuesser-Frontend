@@ -21,6 +21,7 @@ export default function BookPage({book} : BookPageType) {
     const bookTitle : string = book?.title;
     const displayBooks = searchRes.length !== 0;
     const level : Level = isGuessed ? 6 : (guesses.length as Level);
+    console.log(guesses.length)
 
     async function getBookNames(query: string) {
         if (query.length <= 3) return;
@@ -64,24 +65,39 @@ export default function BookPage({book} : BookPageType) {
                     </div>
                         
                 }
-                <div className={styles.guessContainer}>
-                    <input className={styles.guessInput} list="books" type="text" value={currentGuess} onChange={(e) => {const val = e.target.value; setCurrentGuess(val); debouncedSearch(val)}}></input>
-                    <button onClick={() => checkGuess(currentGuess)} className={styles.guessButton}>Submit</button>
-                </div>
-                {displayBooks && 
-                    <div className={styles.bookNames}>
-                        {searchRes.map((title: string) => {
-                            return <div  className={styles.book} onClick={() => checkGuess(title)} key={title}>{title}</div>
-                        })}
+                {isGuessed ? 
+                    <div className="flex flex-col w-full justify-center items-center gap-4">
+                        <div className="flex flex-row  gap-2">
+                            {Array(6).fill(null).map((elem, index) => {
+                                return index < guesses.length - 1 ? <div key={`${bookTitle}_${index}`} className={styles.incorrectGuess}></div> : 
+                                index > guesses.length - 1 ? <div key={`${bookTitle}_${index}`} className={styles.notGuess}></div> 
+                                : <div key={`${bookTitle}_${index}`} className={styles.correctGuess}></div>
+                            })}
+                        </div>
+                        <div>You Win</div>
+                    </div>
+                    :
+                    <div>
+                        <div className={styles.guessContainer}>
+                            <input className={styles.guessInput} list="books" type="text" value={currentGuess} onChange={(e) => {const val = e.target.value; setCurrentGuess(val); debouncedSearch(val)}}></input>
+                            <button onClick={() => checkGuess(currentGuess)} className={styles.guessButton}>Submit</button>
+                        </div>
+                        {displayBooks && 
+                            <div className={styles.bookNames}>
+                                {searchRes.map((title: string) => {
+                                    return <div  className={styles.book} onClick={() => checkGuess(title)} key={title}>{title}</div>
+                                })}
+                            </div>
+                        }
+                        
+                        <div className={styles.puzzleButtons}>
+                            {guesses?.map((guess, index) => {
+                                return <GuessResult key={`${book.title}_${index}`} guess={guess}/>
+                            })}
+                        </div>
+                        <div>{6 - level} Guesses left!!</div>
                     </div>
                 }
-                
-                <div className={styles.puzzleButtons}>
-                    {guesses?.map((guess, index) => {
-                        return <GuessResult key={`${book.title}_${index}`} book={book.title} guess={guess}/>
-                    })}
-                </div>
-                <div>{6 - level} Guesses left!!</div>
             </div>
         </div>
     )

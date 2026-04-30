@@ -54,3 +54,22 @@
     border-radius: 3px;
     box-shadow: 3px 3px 3px 2px;
 }
+
+.incorrectGuess {
+    border: 1px solid var(--dark-brown);
+    background-color: var(--medium-brown);
+    padding: 9px;
+    border-radius: 2px;
+}
+
+.correctGuess {
+    background-color: var(--dark-brown);
+    padding: 10px;
+    border-radius: 2px;
+}
+
+.notGuess {
+    border: 1px solid var(--dark-brown);
+    padding : 9px;
+    border-radius: 2px;
+}
