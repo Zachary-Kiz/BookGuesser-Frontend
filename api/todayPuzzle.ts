@@ -1,10 +1,10 @@
 import { Book } from "@/types/book";
 
-const URL = process.env.NEXT_PUBLIC_URL;
+const BACKEND_API = process.env.NEXT_PUBLIC_API;
 
 export async function getTodayPuzzle(): Promise<Book> {
     try {
-        const res = await fetch(`http://localhost:8080/puzzle/today`, {
+        const res = await fetch(`${BACKEND_API}/puzzle/today`, {
         cache: "no-store",
         });
 
@@ -29,7 +29,7 @@ export async function getTodayPuzzle(): Promise<Book> {
 
 export async function getPastPuzzle(id : string): Promise<Book> {
     try {
-        const res = await fetch(`http://localhost:8080/puzzle/${id}`, {
+        const res = await fetch(`${BACKEND_API}/puzzle/${id}`, {
         cache: "no-store",
         });
 

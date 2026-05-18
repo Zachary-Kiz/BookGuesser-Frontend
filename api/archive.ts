@@ -1,6 +1,8 @@
+const BACKEND_API = process.env.NEXT_PUBLIC_API;
+
 export async function getNumDays(): Promise<number> {
     try {
-        const res = await fetch(`http://localhost:8080/puzzle/numPuzzles`, {
+        const res = await fetch(`${BACKEND_API}/puzzle/numPuzzles`, {
         cache: "no-store",
         });
 
