@@ -2,9 +2,7 @@ const BACKEND_API = process.env.NEXT_PUBLIC_API;
 
 export async function getNumDays(): Promise<number> {
     try {
-        const res = await fetch(`${BACKEND_API}/puzzle/numPuzzles`, {
-        cache: "no-store",
-        });
+        const res = await fetch(`${BACKEND_API}/puzzle/numPuzzles`);
 
         if (!res.ok) {
             let message = `Request failed: ${res.status}`;
