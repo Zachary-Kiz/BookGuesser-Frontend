@@ -9,9 +9,17 @@
 }
 
 .navLink {
-    transition: 0.1s color ease-in-out;
+    padding: 10px;
+    transition: 0.2s background-color ease-in-out;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navLink:hover {
-    color: var(--medium-brown);
+    background-color: var(--dark-brown);
+    color: white;
+    
 }

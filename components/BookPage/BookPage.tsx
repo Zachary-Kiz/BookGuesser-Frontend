@@ -21,7 +21,6 @@ export default function BookPage({book} : BookPageType) {
     const bookTitle : string = book?.title;
     const displayBooks = searchRes.length !== 0;
     const level : Level = isGuessed ? 6 : (guesses.length as Level);
-    console.log(guesses.length)
 
     async function getBookNames(query: string) {
         if (query.length <= 3) return;
@@ -47,18 +46,19 @@ export default function BookPage({book} : BookPageType) {
         () =>
             debounce((val: string) => {
                 getBookNames(val);
-            }, 200),
+            }, 100),
         []
     );
 
     return (
         <div className={styles.puzzleContainer}>
             <div className={styles.puzzle}>
-                {isGuessed && <div>You Win!!</div>}
                 {book && 
-                    <div>
-                        <img src={book.covers[level].imageUrl}/>
-                        <div className="flex flex-row gap-3 justify-center">
+                    <div className="flex flex-col items-center">
+                        <div className="bg-(--medium-brown) w-full flex flex-col items-center">
+                            <img className={styles.imageSize} src={book.covers[level].imageUrl}/>
+                        </div>
+                        <div className="flex flex-row gap-3 justify-center max-w-fit">
                             <BookInfo level={level} name="Genre" value={book.genre}/>
                             <BookInfo level={level} name="Year" value={book.releaseYear}/>
                             <BookInfo level={level} name="Author" value={book.author}/>
@@ -67,20 +67,23 @@ export default function BookPage({book} : BookPageType) {
                         
                 }
                 {isGuessed ? 
-                    <div className="flex flex-col w-full justify-center items-center gap-4">
+                    <div className="flex flex-col w-full justify-center items-center gap-4 mt-4">
                         <div className="flex flex-row  gap-2">
                             {Array(6).fill(null).map((elem, index) => {
-                                return index < guesses.length - 1 ? <div key={`${bookTitle}_${index}`} className={styles.incorrectGuess}></div> : 
-                                index > guesses.length - 1 ? <div key={`${bookTitle}_${index}`} className={styles.notGuess}></div> 
-                                : <div key={`${bookTitle}_${index}`} className={styles.correctGuess}></div>
+                                return index < guesses.length - 1 ? 
+                                    <div key={`${bookTitle}_${index}`} className={styles.incorrectGuess}></div> 
+                                    : index > guesses.length - 1 ? 
+                                    <div key={`${bookTitle}_${index}`} className={styles.notGuess}></div> 
+                                    : 
+                                    <div key={`${bookTitle}_${index}`} className={styles.correctGuess}></div>
                             })}
                         </div>
-                        <div>You Win</div>
+                        <div>You Got It!</div>
                     </div>
                     :
                     <div>
                         <div className={styles.guessContainer}>
-                            <input className={styles.guessInput} list="books" type="text" value={currentGuess} onChange={(e) => {const val = e.target.value; setCurrentGuess(val); debouncedSearch(val)}}></input>
+                            <input placeholder="Enter book title..." className={styles.guessInput} list="books" type="text" value={currentGuess} onChange={(e) => {const val = e.target.value; setCurrentGuess(val); debouncedSearch(val)}}></input>
                             <button onClick={() => checkGuess(currentGuess)} className={styles.guessButton}>Submit</button>
                         </div>
                         {displayBooks && 

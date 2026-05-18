@@ -1,4 +1,5 @@
 import Link from "next/link";
+import styles from "./PuzzleLink.module.css"
 
 type PuzzleLinkType = {
     day : number;
@@ -6,9 +7,9 @@ type PuzzleLinkType = {
 
 export default function PuzzleLink({day} : PuzzleLinkType) {
     return (
-        <Link href={`/puzzle/${day}`} className="flex w-2xs h-12 bg-(--dark-brown) text-white items-center justify-center rounded-2xl">
+        <Link href={`/puzzle/${day}`} className={styles.puzzleLink}>
             <div className="text-2xl">
-                {day}
+                #{day}
             </div>
         </Link>
     )

@@ -1,0 +1,16 @@
+.puzzleLink {
+    display: flex;
+    width: 18rem;
+    height: calc(var(--spacing) * 12);
+    background-color: var(--dark-brown);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    transition: transform 0.3s ease-in;
+}
+
+.puzzleLink:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}

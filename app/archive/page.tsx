@@ -10,9 +10,14 @@ export default async function Archive() {
     return (
         <div className={styles.archiveContainer}>
             <div className={styles.archiveBackground}>
-                {Array(numPuzzles).fill(null).map((num, index) => {
-                    return <PuzzleLink key={`puzzle_day_${index}`} day={index + 1}/>
-                })}
+                <h2 className={styles.archiveHeader}>
+                    Archive
+                </h2>
+                <div className={styles.archiveWrap}>
+                    {Array(numPuzzles).fill(null).map((num, index) => {
+                        return <PuzzleLink key={`puzzle_day_${index}`} day={index + 1}/>
+                    })}
+                </div>
             </div>
         </div>
     )
