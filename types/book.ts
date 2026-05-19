@@ -5,6 +5,7 @@ export interface Cover {
 }
 
 export interface Book {
+    id: number;
     title: string;
     author: string;
     releaseYear: number;
