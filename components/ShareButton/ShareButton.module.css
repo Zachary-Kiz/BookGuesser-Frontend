@@ -1,0 +1,12 @@
+.shareButton {
+    background-color: var(--dark-brown);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+.shareButton:hover {
+    background-color: #341C02;
+}

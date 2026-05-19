@@ -6,6 +6,7 @@ import styles from "./BookPage.module.css"
 import { Book, Level } from "@/types/book";
 import GuessResult from "@/components/GuessResult/GuessResult";
 import BookInfo from "@/components/BookInfo/BookInfo";
+import ShareButton from "../ShareButton/ShareButton";
 
 type BookPageType = {
     book: Book;
@@ -68,15 +69,17 @@ export default function BookPage({book} : BookPageType) {
                 }
                 {isGuessed ? 
                     <div className="flex flex-col w-full justify-center items-center gap-4 mt-4">
-                        <div className="flex flex-row  gap-2">
+                        <div className="flex flex-row  gap-2 items-center">
                             {Array(6).fill(null).map((elem, index) => {
-                                return index < guesses.length - 1 ? 
+                                const correctGuess = guesses.length - 1;
+                                return index < correctGuess ? 
                                     <div key={`${bookTitle}_${index}`} className={styles.incorrectGuess}></div> 
-                                    : index > guesses.length - 1 ? 
+                                    : index > correctGuess ? 
                                     <div key={`${bookTitle}_${index}`} className={styles.notGuess}></div> 
                                     : 
                                     <div key={`${bookTitle}_${index}`} className={styles.correctGuess}></div>
                             })}
+                            <ShareButton day={book.id} correctGuess={guesses.length - 1}></ShareButton>
                         </div>
                         <div>You Got It!</div>
                     </div>
