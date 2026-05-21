@@ -18,7 +18,7 @@ export default function ShareButton({day, correctGuess} : Share) {
         else if (i < correctGuess) shareText += '🟫 ';
         else shareText += ' ⬜';
     }
-    shareText += '\n\nhttps://book-guesser-frontend-ibvnf34fq-zachary-kizs-projects.vercel.app/today'
+    shareText += '\n\nhttps://book-guesser-frontend.vercel.app/today'
 
     const shareLink = () => {
         navigator.clipboard.writeText(shareText);
