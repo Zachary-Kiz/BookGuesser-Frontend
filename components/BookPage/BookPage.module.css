@@ -70,12 +70,14 @@
     background-color: var(--medium-brown);
     padding: 9px;
     border-radius: 2px;
+    height: 22px;
 }
 
 .correctGuess {
     background-color: var(--dark-brown);
     padding: 10px;
     border-radius: 2px;
+    height: 22px;
 }
 
 .imageSize {
@@ -86,4 +88,5 @@
     border: 1px solid var(--dark-brown);
     padding : 9px;
     border-radius: 2px;
+    height: 22px;
 }
