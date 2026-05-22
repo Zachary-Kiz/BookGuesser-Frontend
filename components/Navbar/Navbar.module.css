@@ -1,11 +1,12 @@
 .navContainer {
+    position: relative;
     display: flex;
     flex-direction: row;
-    padding-left: 4rem;
     font-family: 'Merriweather';
     font-size:50px;
     box-shadow: 1px 1px 1px 1px gray;
     justify-content: space-between;
+    background-color: var(--background);
 }
 
 .navLink {
@@ -22,4 +23,41 @@
     background-color: var(--dark-brown);
     color: white;
     
+}
+
+@media (max-width: 768px) {
+    .navContainer {
+        position: relative;
+        z-index: 1000;
+        isolation: isolate;
+        background-color: var(--background);
+    }
+
+    .mobileNav {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: var(--background);
+        z-index: 1;
+        transform: translateY(-150%);
+        transition: 0.4s transform ease-in-out;
+    }
+
+    .visibleNav {
+        transform: translateY(0);
+    }
+}
+
+.mobileNavLink {
+    display: block;
+    border-top: 1px solid var(--light-brown);
+    width: 100%;
+    font-size: x-large;
+    padding: 1.2rem;
+    font-family: 'Merriweather', Helvetica, sans-serif;
+    text-align: center;
 }
