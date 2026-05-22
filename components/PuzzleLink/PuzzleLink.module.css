@@ -8,9 +8,17 @@
     justify-content: center;
     border-radius: 1rem;
     transition: transform 0.3s ease-in;
+    font-size: x-large;
 }
 
 .puzzleLink:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width : 480px) {
+    .puzzleLink {
+        width: 4.5rem;
+        height: 4.5rem;
+    }
 }

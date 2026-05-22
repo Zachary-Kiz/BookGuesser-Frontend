@@ -8,7 +8,7 @@ type PuzzleLinkType = {
 export default function PuzzleLink({day} : PuzzleLinkType) {
     return (
         <Link href={`/puzzle/${day}`} className={styles.puzzleLink}>
-            <div className="text-2xl">
+            <div>
                 #{day}
             </div>
         </Link>
