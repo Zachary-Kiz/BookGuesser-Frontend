@@ -16,7 +16,7 @@ export default function MobileNavbar() {
 
     return (
         <>
-            <div className="flex z-11 bg-background w-12 items-center">
+            <div className="flex z-11 bg-background w-16 items-center md:hidden">
                 <BurgerIcon onClick={() => openMenu()}/>
             </div>
             <div className={clsx(styles.mobileNav, {[styles.visibleNav] : isOpen})}>

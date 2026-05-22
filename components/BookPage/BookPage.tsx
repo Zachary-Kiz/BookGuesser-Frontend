@@ -55,7 +55,7 @@ export default function BookPage({book} : BookPageType) {
         <div className={styles.puzzleContainer}>
             <div className={styles.puzzle}>
                 {book && 
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center gap-2">
                         <div className="bg-(--medium-brown) w-full flex flex-col items-center">
                             <img className={styles.imageSize} src={book.covers[level].imageUrl}/>
                         </div>
@@ -96,7 +96,6 @@ export default function BookPage({book} : BookPageType) {
                                 })}
                             </div>
                         }
-                        
                         <div className={styles.puzzleButtons}>
                             {guesses?.map((guess, index) => {
                                 return <GuessResult key={`${book.title}_${index}`} guess={guess}/>

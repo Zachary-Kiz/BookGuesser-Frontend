@@ -11,8 +11,7 @@ export default function BookInfo({level, name, value} : Info) {
     const isViewable = level > HintLevels[name];
     return (
         <div className={`${styles.bookInfo} ${isViewable && styles.isVis}`}>
-            <div>{name}:</div>
-            <div>{isViewable ? value : "???"}</div>
+            <div>{name}: {isViewable ? value : "???"}</div>
         </div>
     )
 }

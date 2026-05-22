@@ -25,7 +25,11 @@
     
 }
 
-@media (max-width: 768px) {
+.mobileNav {
+    display: none;
+}
+
+@media (max-width: 480px) {
     .navContainer {
         position: relative;
         z-index: 1000;

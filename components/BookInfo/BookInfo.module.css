@@ -13,3 +13,10 @@
     color: white;
     background-color: var(--dark-brown);
 }
+
+@media (max-width : 480px) {
+    .bookInfo {
+        font-size: medium;
+        text-align: center;
+    }
+}
