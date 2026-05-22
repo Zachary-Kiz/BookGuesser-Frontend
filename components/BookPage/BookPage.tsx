@@ -1,7 +1,7 @@
 "use client"
 
 import { searchBooks, debounce} from "@/api/todayPuzzle";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./BookPage.module.css"
 import { Book, Level } from "@/types/book";
 import GuessResult from "@/components/GuessResult/GuessResult";
@@ -12,16 +12,23 @@ type BookPageType = {
     book: Book;
 }
 
+enum Guess {
+    Guessing,
+    Success,
+    Failed
+}
+
 export default function BookPage({book} : BookPageType) {
 
     const [guesses, setGuesses] = useState<Array<string>>([]);
     const [currentGuess, setCurrentGuess] = useState<string>("");
     const [searchRes, setSearchRes] = useState<Array<string>>([])
-    const [isGuessed, setIsGuessed] = useState<boolean>(false);
+    const [isGuessed, setIsGuessed] = useState<Guess>(Guess.Guessing);
 
     const bookTitle : string = book?.title;
     const displayBooks = searchRes.length !== 0;
     const level : Level = isGuessed ? 6 : (guesses.length as Level);
+    const correctGuess = isGuessed === Guess.Failed ? 7 : guesses.length - 1;
 
     async function getBookNames(query: string) {
         if (query.length <= 3) return;
@@ -31,17 +38,20 @@ export default function BookPage({book} : BookPageType) {
         } catch (err) {
             console.error(err)
         }
-        
     }
 
     function checkGuess(guess : string) : void {
         if (bookTitle && guess === bookTitle) {
-            setIsGuessed(true);
+            setIsGuessed(Guess.Success);
         }
         setGuesses([...guesses, guess]);
         setCurrentGuess("");
         setSearchRes([]);
     }
+
+    useEffect(() => {
+        if (guesses.length === 6 && isGuessed === Guess.Guessing) setIsGuessed(Guess.Failed)
+    }, [guesses])
 
     const debouncedSearch = useMemo(
         () =>
@@ -67,11 +77,11 @@ export default function BookPage({book} : BookPageType) {
                     </div>
                         
                 }
-                {isGuessed ? 
+                {isGuessed !== Guess.Guessing ? 
                     <div className="flex flex-col w-full justify-center items-center gap-4 mt-4">
                         <div className="flex flex-row  gap-2 items-center">
                             {Array(6).fill(null).map((elem, index) => {
-                                const correctGuess = guesses.length - 1;
+                                
                                 return index < correctGuess ? 
                                     <div key={`${bookTitle}_${index}`} className={styles.incorrectGuess}></div> 
                                     : index > correctGuess ? 
@@ -79,9 +89,10 @@ export default function BookPage({book} : BookPageType) {
                                     : 
                                     <div key={`${bookTitle}_${index}`} className={styles.correctGuess}></div>
                             })}
-                            <ShareButton day={book.id} correctGuess={guesses.length - 1}></ShareButton>
+                            <ShareButton day={book.id} correctGuess={correctGuess}></ShareButton>
                         </div>
-                        <div>You Got It!</div>
+                        {isGuessed == Guess.Success && <div>You Got It!</div>}
+                        {isGuessed == Guess.Failed && <div>Better Luck Next Time</div>}
                     </div>
                     :
                     <div>
