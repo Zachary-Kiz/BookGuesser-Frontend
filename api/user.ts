@@ -1,4 +1,4 @@
-import { SignUpData } from "@/types/user";
+import { LoginData, SignUpData } from "@/types/user";
 
 const BACKEND_API = process.env.NEXT_PUBLIC_API;
 
@@ -16,6 +16,41 @@ export async function registerAccount(username : string, email : string, passwor
             method : "POST",
             headers: {
                 'Content-Type': 'application/json', // Tell the server you're sending JSON
+            },
+            body : JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+            let message = `Request failed: ${res.status}`;
+
+        try {
+            const errorBody = await res.text();
+            message = errorBody || message;
+        } catch {}
+
+        throw new Error(message);
+        }
+
+        return true;
+    } catch (err) {
+        console.error("registerAccount error:", err);
+
+        throw err;
+    }
+}
+
+export async function login(username: string, password : string) {
+    try {
+
+        const body : LoginData = {
+            "username" : username,
+            "password" : password,
+        }
+
+        const res = await fetch(`${BACKEND_API}/auth/generateToken`, {
+            method : "POST",
+            headers: {
+                'Content-Type': 'application/json',
             },
             body : JSON.stringify(body)
         });
