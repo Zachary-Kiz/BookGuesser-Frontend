@@ -40,7 +40,7 @@ export default function Login() {
     return (
         <div className={styles.loginContainer}>
             <div className={styles.loginBackground}>
-                <div className="text-5xl">Sign Up</div>
+                <div className="text-5xl">Login</div>
                 <FormInput setValue={setUsername} error={error.username} label="Enter Username:"></FormInput>
                 <FormInput setValue={setPassword} error={error.password} label="Enter Password"></FormInput>
                 <button className={styles.loginSubmit} onClick={() => handleSubmit()}>Submit</button>

@@ -1,0 +1,15 @@
+.navLink {
+    padding: 10px;
+    transition: 0.2s background-color ease-in-out;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+}
+
+.navLink:hover {
+    background-color: var(--dark-brown);
+    color: white;
+}

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import styles from "./Navbar.module.css"
 import MobileNavbar from "./MobileNavbar"
+import ProfileButton from "../ProfileButton/ProfileButton"
 
 export default function Navbar () {
 
@@ -13,7 +14,7 @@ export default function Navbar () {
                 <div className="text-2xl flex-row items-center pr-20 hidden md:flex">
                     <Link className={styles.navLink} href={"/today"}>Today</Link>
                     <Link className={styles.navLink} href={"/archive"}>Archive</Link>
-                    <Link className={styles.navLink} href={"profile"}>Profile</Link> 
+                    <ProfileButton isLoggedIn={false}></ProfileButton>
                 </div>
                 <MobileNavbar/>
             </div>
