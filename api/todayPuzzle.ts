@@ -11,12 +11,12 @@ export async function getTodayPuzzle(): Promise<Book> {
         if (!res.ok) {
             let message = `Request failed: ${res.status}`;
 
-        try {
-            const errorBody = await res.text();
-            message = errorBody || message;
-        } catch {}
+            try {
+                const errorBody = await res.text();
+                message = errorBody || message;
+            } catch {}
 
-        throw new Error(message);
+            throw new Error(message);
         }
 
         return await res.json();

@@ -1,4 +1,5 @@
 import { LoginData, SignUpData } from "@/types/user";
+import { json } from "stream/consumers";
 
 const BACKEND_API = process.env.NEXT_PUBLIC_API;
 
@@ -47,12 +48,13 @@ export async function login(username: string, password : string) {
             "password" : password,
         }
 
-        const res = await fetch(`${BACKEND_API}/auth/generateToken`, {
+        const res = await fetch(`${BACKEND_API}/auth/login`, {
             method : "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body : JSON.stringify(body)
+            body : JSON.stringify(body),
+            credentials: 'include'
         });
 
         if (!res.ok) {
@@ -67,6 +69,32 @@ export async function login(username: string, password : string) {
         }
 
         return true;
+    } catch (err) {
+        console.error("registerAccount error:", err);
+
+        throw err;
+    }
+}
+
+export async function validateToken() {
+    try {
+
+        const res = await fetch(`${BACKEND_API}/auth/user/refresh`, {
+            credentials : 'include'
+        });
+
+        if (!res.ok) {
+            let message = `Request failed: ${res.status}`;
+
+            try {
+                const errorBody = await res.text();
+                message = errorBody || message;
+            } catch {}
+
+            throw new Error(message);
+        }
+
+        return await res.json();
     } catch (err) {
         console.error("registerAccount error:", err);
 

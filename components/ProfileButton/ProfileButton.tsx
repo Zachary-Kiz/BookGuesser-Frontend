@@ -1,11 +1,13 @@
+"use client"
+
 import Link from "next/link"
 import styles from "./ProfileButton.module.css"
+import { useAuth } from "@/contexts/AuthProvider"
 
-interface ProfileInterface {
-    isLoggedIn : boolean;
-}
 
-export default function ProfileButton({isLoggedIn} : ProfileInterface) {
+export default function ProfileButton() {
+
+    const { isLoggedIn } = useAuth();
 
     return (
         <>

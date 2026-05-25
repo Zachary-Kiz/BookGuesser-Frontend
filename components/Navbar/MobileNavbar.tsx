@@ -5,8 +5,11 @@ import Link from "next/link";
 import clsx from "clsx";
 
 import styles from "./Navbar.module.css"
+import { useAuth } from "@/contexts/AuthProvider";
 
 export default function MobileNavbar() {
+
+    const { isLoggedIn } = useAuth();
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -26,9 +29,16 @@ export default function MobileNavbar() {
                 <Link className={styles.mobileNavLink} href="/archive">
                     Archive
                 </Link>
-                <Link className={styles.mobileNavLink} href="/profile">
-                    Profile
-                </Link>
+                {isLoggedIn ? 
+                    <Link className={styles.mobileNavLink} href="/profile">
+                        Profile
+                    </Link>
+                    :
+                    <>
+                        <Link className={styles.mobileNavLink} href={"/login"}>Login</Link>
+                        <Link className={styles.mobileNavLink} href={"/sign_up"}>Sign Up</Link>
+                    </>
+                }
             </div>
 
         </>
