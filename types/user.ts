@@ -3,6 +3,7 @@ export interface SignUpError {
     email: string;
     password: string;
     rePass: string;
+    exists: string;
 }
 
 export interface SignUpData {

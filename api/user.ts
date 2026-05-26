@@ -1,5 +1,7 @@
+"use server"
+
 import { LoginData, SignUpData } from "@/types/user";
-import { json } from "stream/consumers";
+import { cookies } from "next/headers";
 
 const BACKEND_API = process.env.NEXT_PUBLIC_API;
 
@@ -16,7 +18,7 @@ export async function registerAccount(username : string, email : string, passwor
         const res = await fetch(`${BACKEND_API}/auth/register`, {
             method : "POST",
             headers: {
-                'Content-Type': 'application/json', // Tell the server you're sending JSON
+                'Content-Type': 'application/json',
             },
             body : JSON.stringify(body)
         });
@@ -24,12 +26,12 @@ export async function registerAccount(username : string, email : string, passwor
         if (!res.ok) {
             let message = `Request failed: ${res.status}`;
 
-        try {
-            const errorBody = await res.text();
-            message = errorBody || message;
-        } catch {}
+            try {
+                const errorBody = await res.json();
+                message = errorBody.error || message;
+            } catch {}
 
-        throw new Error(message);
+            throw new Error(message);
         }
 
         return true;
@@ -57,6 +59,8 @@ export async function login(username: string, password : string) {
             credentials: 'include'
         });
 
+        console.log(res.headers.getSetCookie());
+
         if (!res.ok) {
             let message = `Request failed: ${res.status}`;
 
@@ -79,8 +83,12 @@ export async function login(username: string, password : string) {
 export async function validateToken() {
     try {
 
+        const cookieStore = await cookies()
+
         const res = await fetch(`${BACKEND_API}/auth/user/refresh`, {
-            credentials : 'include'
+            headers: {
+                'Cookie': cookieStore.toString(),
+            },
         });
 
         if (!res.ok) {
@@ -97,6 +105,36 @@ export async function validateToken() {
         return await res.json();
     } catch (err) {
         console.error("registerAccount error:", err);
+
+        throw err;
+    }
+}
+
+export async function getUser() {
+    try {
+
+        const cookieStore = await cookies()
+
+        const res = await fetch(`${BACKEND_API}/auth/user`, {
+            headers: {
+                'Cookie': cookieStore.toString(),
+            },
+        });
+
+        if (!res.ok) {
+            let message = `Request failed: ${res.status}`;
+
+            try {
+                const errorBody = await res.text();
+                message = errorBody || message;
+            } catch {}
+
+            throw new Error(message);
+        }
+
+        return await res.json();
+    } catch (err) {
+        console.error("getUser error:", err);
 
         throw err;
     }

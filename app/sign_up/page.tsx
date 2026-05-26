@@ -18,7 +18,8 @@ export default function SignUp() {
         "username": "",
         "email" : "",
         "password" : "",
-        "rePass" : ""
+        "rePass" : "",
+        "exists" : ""
     });
 
     const router = useRouter();
@@ -28,7 +29,8 @@ export default function SignUp() {
             "username": "",
             "email" : "",
             "password" : "",
-            "rePass" : ""
+            "rePass" : "",
+            "exists" : ""
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,18 +41,25 @@ export default function SignUp() {
         if (password !== rePass) errorTest.password = "Passwords do not match";
 
         const allValuesEmpty : boolean = Object.values(errorTest).every(value => !value);
-        setError(errorTest)
-        if (!allValuesEmpty) return;
+        if (!allValuesEmpty){
+            setError(errorTest)
+            return;
+        } 
 
-        const success : boolean = await registerAccount(username, email, password);
-        if (success) router.replace("/profile")
-
+        try {
+            const success : boolean = await registerAccount(username, email, password);
+            if (success) router.replace("/profile")
+        } catch (e : any) {
+            errorTest.exists = e.message;
+            setError(errorTest)
+        }
     }
 
     return (
         <div className={styles.signContainer}>
             <div className={styles.signBackground}>
                 <div className="text-5xl">Sign Up</div>
+                {error.exists && <div className="">*{error.exists}</div>}
                 <FormInput setValue={setEmail} error={error.email} label="Enter Email:"></FormInput>
                 <FormInput setValue={setUsername} error={error.username} label="Enter Username:"></FormInput>
                 <FormInput setValue={setPassword} error={error.password} label="Enter Password"></FormInput>

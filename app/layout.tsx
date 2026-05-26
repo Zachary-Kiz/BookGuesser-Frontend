@@ -19,11 +19,12 @@ export const metadata: Metadata = {
   description: "Try to name the book in 6 guesses or less!",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html
       lang="en"
@@ -32,8 +33,8 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           <Navbar></Navbar>
-        </AuthProvider>
           {children}
+        </AuthProvider>
       </body>
     </html>
   );
