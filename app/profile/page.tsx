@@ -1,15 +1,16 @@
-import { getUser, validateToken } from "@/api/user"
+import { getUser, validateToken } from "@/api/userServer"
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 
 export default async function Profile() {
 
-    const user = await getUser()
-    console.log(user)
+    const {user} = await getUser();
+    if (!user) redirect("/login")
     
     return (
         <div>
-            Profiles coming soon!
+            {user ? user : "Profiles coming soon!"}
         </div>
     )
 }

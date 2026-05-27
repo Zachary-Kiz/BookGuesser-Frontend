@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import styles from "./SignUp.module.css"
 import FormInput from "@/components/FormInput/FormInput";
-import { registerAccount } from "@/api/user";
+import { registerAccount } from "@/api/userClient";
 import { SignUpError } from "@/types/user";
 
 export default function SignUp() {

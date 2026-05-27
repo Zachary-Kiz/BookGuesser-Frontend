@@ -16,6 +16,7 @@ export interface SignUpData {
 export interface LoginError {
     username: string;
     password: string;
+    exists: string;
 }
 
 export interface LoginData {
