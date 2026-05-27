@@ -1,11 +1,17 @@
 "use client"
 
-import { validateToken } from "@/api/user";
-import { Context, createContext, useContext, useEffect, useState } from "react";
+import { validateToken } from "@/api/userServer";
+import { Context, createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 interface AuthContextType {
     token : string | null;
-    isLoggedIn : boolean
+    isLoggedIn : boolean;
+    setIsLoggedIn: (boolean : boolean) => void;
+}
+
+interface AuthProviderType {
+    children: ReactNode,
+    logged : boolean
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -19,9 +25,9 @@ const useAuth = () => {
     return authContext;
 }
 
-const AuthProvider : React.FC<{children : React.ReactNode}> = ({ children }) => {
+const AuthProvider = ({ children, logged=false } : AuthProviderType) => {
     const [token, setToken] = useState<string | null>(null);
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(logged);
 
     const checkToken = async () => {
         try {
@@ -39,7 +45,7 @@ const AuthProvider : React.FC<{children : React.ReactNode}> = ({ children }) => 
     }, [])
 
     return (
-        <AuthContext.Provider value={{token, isLoggedIn}}>
+        <AuthContext.Provider value={{token, isLoggedIn, setIsLoggedIn}}>
             {children}
         </AuthContext.Provider>
     )
