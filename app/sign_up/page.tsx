@@ -48,7 +48,7 @@ export default function SignUp() {
 
         try {
             const success : boolean = await registerAccount(username, email, password);
-            if (success) router.replace("/profile")
+            if (success) router.replace("/login")
         } catch (e : any) {
             errorTest.exists = e.message;
             setError(errorTest)

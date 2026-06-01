@@ -69,7 +69,7 @@ export async function login(username: string, password : string) {
 
         return true;
     } catch (err) {
-        console.error("registerAccount error:", err);
+        console.error("login error:", err);
 
         throw err;
     }

@@ -1,5 +1,4 @@
 import { getUser, validateToken } from "@/api/userServer"
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 
