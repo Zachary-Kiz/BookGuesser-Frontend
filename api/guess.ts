@@ -34,7 +34,7 @@ export async function uploadGuess(puzzleId : string, username : string, guessed 
 
         return await res.json();
     } catch (err) {
-        console.error("registerAccount error:", err);
+        console.error("uploadGuess error:", err);
 
         throw err;
     }
@@ -63,7 +63,7 @@ export async function getGuess( username : string, puzzleId : string) : Promise<
 
         return await res.json();
     } catch (err) {
-        console.error("registerAccount error:", err);
+        console.error("getGuess error:", err);
 
         throw err;
     }

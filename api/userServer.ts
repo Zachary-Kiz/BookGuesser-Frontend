@@ -21,7 +21,7 @@ export async function validateToken() {
 
         return await res.json();
     } catch (err) {
-        console.error("registerAccount error:", err);
+        console.error("validateToken error:", err);
 
         throw err;
     }
