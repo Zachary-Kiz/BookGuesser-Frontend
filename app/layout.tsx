@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import { AuthProvider } from "@/contexts/AuthProvider";
 import { validateToken } from "@/api/userServer";
+import { cookies } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +28,10 @@ export default async function RootLayout({
 }>) {
 
   let logged : boolean = false;
-  const data = await validateToken();
-  if (data) logged = true;
-
+  const cookieStore = await cookies()
+  const token = cookieStore.get('token')?.value;
+  if (token) logged = true;
   
-
   return (
     <html
       lang="en"
