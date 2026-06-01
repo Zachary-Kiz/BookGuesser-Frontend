@@ -43,8 +43,10 @@ export default function Login() {
 
         try {
             const success : boolean = await login(username, password);
-            setIsLoggedIn(true);
-            if (success) router.replace("/profile")
+            if (success) {
+                setIsLoggedIn(true);
+                router.replace("/profile")
+            }
         } catch (e : any) {
             errorTest.exists = e.message;
             setError(errorTest);
