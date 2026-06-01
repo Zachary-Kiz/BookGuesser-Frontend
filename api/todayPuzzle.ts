@@ -2,10 +2,15 @@ import { Book } from "@/types/book";
 
 const BACKEND_API = process.env.NEXT_PUBLIC_API;
 
-export async function getTodayPuzzle(): Promise<Book> {
+interface TodayPuzzleType {
+    puzzleId : number;
+    book : Book;
+}
+
+export async function getTodayPuzzle(): Promise<TodayPuzzleType> {
     try {
         const res = await fetch(`${BACKEND_API}/puzzle/today`, {
-            next: { revalidate: 86400 }, // 24 hours
+            // next: { revalidate: 86400 }, // 24 hours
         });
 
         if (!res.ok) {
@@ -19,7 +24,8 @@ export async function getTodayPuzzle(): Promise<Book> {
             throw new Error(message);
         }
 
-        return await res.json();
+        const resJson = await res.json();
+        return await resJson;
     } catch (err) {
         console.error("getTodayPuzzle error:", err);
 

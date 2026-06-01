@@ -1,5 +1,9 @@
+import { getGuess } from "@/api/guess";
 import { getPastPuzzle } from "@/api/todayPuzzle";
+import { getUser } from "@/api/userServer";
 import BookPage from "@/components/BookPage/BookPage";
+import { handleGuess } from "@/helpers/helper";
+import { Guess, PlayerGuess } from "@/types/user";
 
 export default async function Puzzle({
     params,
@@ -8,7 +12,18 @@ export default async function Puzzle({
 }) {
     const { id } = await params;
 
+    let user = "";
+    let guesses : Array<string> = []
+    let isGuessed = Guess.Guessing;
     const book = await getPastPuzzle(id);
+    const data = await getUser();
+    if (data) user = data['user']
+    const guess : PlayerGuess | undefined = await getGuess(user, id);
+    if (guess) {
+        guesses = guess['guesses'];
+        isGuessed = handleGuess(guess['guessed'])
+    }
 
-    return <BookPage book={book} />;
+
+    return <BookPage book={book} username={user} id={id} guessed={isGuessed} prevGuesses={guesses}/>;
 }

@@ -23,3 +23,16 @@ export interface LoginData {
     username: string;
     password: string;
 }
+
+export interface PlayerGuess {
+    guessed : boolean;
+    guesses : string[];
+    puzzleId : number;
+    username : string;
+}
+
+export enum Guess {
+    Guessing,
+    Success,
+    Failed
+}

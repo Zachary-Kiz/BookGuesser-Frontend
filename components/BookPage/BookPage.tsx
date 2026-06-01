@@ -1,29 +1,33 @@
 "use client"
 
-import { searchBooks, debounce} from "@/api/todayPuzzle";
+import { searchBooks, debounce, getTodayPuzzle} from "@/api/todayPuzzle";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./BookPage.module.css"
 import { Book, Level } from "@/types/book";
 import GuessResult from "@/components/GuessResult/GuessResult";
 import BookInfo from "@/components/BookInfo/BookInfo";
 import ShareButton from "../ShareButton/ShareButton";
+import { useAuth } from "@/contexts/AuthProvider";
+import { uploadGuess } from "@/api/guess";
+import { Guess } from "@/types/user";
 
 type BookPageType = {
     book: Book;
+    username : string;
+    id : string;
+    prevGuesses?: Array<string>
+    guessed : Guess
 }
 
-enum Guess {
-    Guessing,
-    Success,
-    Failed
-}
+export default function BookPage({book, username, id, guessed, prevGuesses=[]} : BookPageType) {
 
-export default function BookPage({book} : BookPageType) {
+    
+    const { isLoggedIn } = useAuth();
 
-    const [guesses, setGuesses] = useState<Array<string>>([]);
+    const [guesses, setGuesses] = useState<Array<string>>(prevGuesses);
     const [currentGuess, setCurrentGuess] = useState<string>("");
     const [searchRes, setSearchRes] = useState<Array<string>>([])
-    const [isGuessed, setIsGuessed] = useState<Guess>(Guess.Guessing);
+    const [isGuessed, setIsGuessed] = useState<Guess>(guessed);
 
     const bookTitle : string = book?.title;
     const displayBooks = searchRes.length !== 0;
@@ -49,9 +53,22 @@ export default function BookPage({book} : BookPageType) {
         setSearchRes([]);
     }
 
+    const sendGuess = async () => {
+        if (!isLoggedIn) return;
+        if (isGuessed === Guess.Failed || isGuessed === Guess.Success) {
+            const guessed = isGuessed == Guess.Success ? true : false;
+            await uploadGuess(id, username, guessed, guesses)
+
+        }
+    }
+
     useEffect(() => {
         if (guesses.length === 6 && isGuessed === Guess.Guessing) setIsGuessed(Guess.Failed)
     }, [guesses])
+
+    useEffect(() => {
+        sendGuess()
+    }, [isGuessed])
 
     const debouncedSearch = useMemo(
         () =>
