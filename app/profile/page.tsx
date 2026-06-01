@@ -4,12 +4,13 @@ import { redirect } from "next/navigation";
 
 export default async function Profile() {
 
-    const {user} = await getUser();
+    const user = await getUser();
     if (!user) redirect("/login")
+    const username = user['user']
     
     return (
         <div>
-            {user ? user : "Profiles coming soon!"}
+            {user ? username : "Profiles coming soon!"}
         </div>
     )
 }
