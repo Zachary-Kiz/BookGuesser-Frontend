@@ -1,7 +1,7 @@
 "use client"
 
 interface Share {
-    day: number;
+    day: string;
     correctGuess : number;
 }
 

@@ -106,7 +106,7 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[]} :
                                     : 
                                     <div key={`${bookTitle}_${index}`} className={styles.correctGuess}></div>
                             })}
-                            <ShareButton day={book.id} correctGuess={correctGuess}></ShareButton>
+                            <ShareButton day={id} correctGuess={correctGuess}></ShareButton>
                         </div>
                         {isGuessed == Guess.Success && <div>You Got It!</div>}
                         {isGuessed == Guess.Failed && <div>Better Luck Next Time</div>}
