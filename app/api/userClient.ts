@@ -74,3 +74,32 @@ export async function login(username: string, password : string) {
         throw err;
     }
 }
+
+export async function logout() {
+
+    try {
+
+        const res = await fetch(`${BACKEND_API}/auth/user/logOut`, {
+            credentials : 'include',
+            method: 'POST'
+        })
+
+        if (!res.ok) {
+            let message = `Request failed: ${res.status}`;
+
+            try {
+                const errorBody = await res.json();
+                message = errorBody.error || message;
+            } catch {}
+
+            throw new Error(message);
+        }
+
+        return true;
+
+    } catch (err) {
+        console.error("logout error:", err);
+
+        throw err;
+    }
+}

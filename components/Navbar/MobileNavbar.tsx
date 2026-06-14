@@ -30,9 +30,12 @@ export default function MobileNavbar() {
                     Archive
                 </Link>
                 {isLoggedIn ? 
-                    <Link className={styles.mobileNavLink} href="/profile">
-                        Profile
-                    </Link>
+                    <>
+                        <Link className={styles.mobileNavLink} href="/profile">
+                            Profile
+                        </Link>
+                        <Link className={styles.mobileNavLink} href={"/logout"}>Log Out</Link>
+                    </>
                     :
                     <>
                         <Link className={styles.mobileNavLink} href={"/login"}>Login</Link>

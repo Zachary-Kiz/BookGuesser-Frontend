@@ -1,0 +1,28 @@
+.cancelButton {
+    color: var(--dark-brown);
+    padding: calc(var(--spacing) * 2);
+    border-radius: var(--radius-3xl);
+    border-style: var(--tw-border-style);
+    border-width: 1px;
+    border-color: var(--dark-brown);
+    transition: 0.3s transform ease-in-out;
+}
+
+.cancelButton:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.logoutButton {
+    color: white;
+    background-color: var(--dark-brown);
+    border-radius: var(--radius-3xl);
+    padding: calc(var(--spacing) * 2);
+    transition: 0.3s transform ease-in-out;
+    cursor: pointer;
+}
+
+.logoutButton:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}

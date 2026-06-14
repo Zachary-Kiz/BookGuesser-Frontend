@@ -11,6 +11,7 @@ export async function uploadGuess(puzzleId : string, username : string, guessed 
     try {
 
         const cookieStore = await cookies()
+        const accessToken = cookieStore.get('accessToken')?.value
 
         const body = {
             "puzzleId" : +puzzleId,
@@ -22,7 +23,7 @@ export async function uploadGuess(puzzleId : string, username : string, guessed 
         const res = await fetch(`${BACKEND_API}/guess/upload`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Cookie': cookieStore.toString(),
+                'Authorization' : `Bearer ${accessToken}`
             },
             method: 'POST',
             body : JSON.stringify(body),
@@ -45,6 +46,7 @@ export async function getGuess( username : string, puzzleId : string) : Promise<
     try {
 
         const cookieStore = await cookies()
+        const accessToken = cookieStore.get('accessToken')?.value
 
         const params = new URLSearchParams();
 
@@ -53,7 +55,7 @@ export async function getGuess( username : string, puzzleId : string) : Promise<
 
         const res = await fetch(`${BACKEND_API}/guess/prev?${params}`, {
             headers: {
-                'Cookie': cookieStore.toString(),
+                'Authorization' : `Bearer ${accessToken}`
             },
         });
 
