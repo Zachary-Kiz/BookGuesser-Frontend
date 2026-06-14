@@ -12,11 +12,14 @@ export default function ProfileButton() {
     return (
         <>
             {isLoggedIn ? 
-                <Link className={styles.navLink} href={"/profile"}>Profile</Link>
+                <>
+                    <Link className={styles.navLink} href={"/profile"}>Profile</Link>
+                    <Link className={styles.navLink} href={"/logout"}>Log Out</Link>
+                </>
                 :
                 <>
                 <Link className={styles.navLink} href={"/login"}>Login</Link>
-                <Link className={styles.navLink} href={"sign_up"}>Sign Up</Link>
+                <Link className={styles.navLink} href={"/sign_up"}>Sign Up</Link>
                 </>  
             }
         </>

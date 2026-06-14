@@ -3,6 +3,7 @@
 import {Chart as Chartjs, BarElement, CategoryScale, Legend, LinearScale, Tooltip } from "chart.js"
 import { Bar } from "react-chartjs-2"
 
+
 interface ChartWrapperType {
     stats : Object
 }

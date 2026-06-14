@@ -1,6 +1,6 @@
 "use client"
 
-import { searchBooks, debounce, getTodayPuzzle} from "@/api/todayPuzzle";
+import { searchBooks, debounce, getTodayPuzzle} from "@/app/api/todayPuzzle";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./BookPage.module.css"
 import { Book, Level } from "@/types/book";
@@ -8,7 +8,7 @@ import GuessResult from "@/components/GuessResult/GuessResult";
 import BookInfo from "@/components/BookInfo/BookInfo";
 import ShareButton from "../ShareButton/ShareButton";
 import { useAuth } from "@/contexts/AuthProvider";
-import { uploadGuess } from "@/api/guess";
+import { uploadGuess } from "@/app/api/guess";
 import { Guess } from "@/types/user";
 
 type BookPageType = {
@@ -67,6 +67,7 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[]} :
     }, [guesses])
 
     useEffect(() => {
+        if (guessed === Guess.Guessing)
         sendGuess()
     }, [isGuessed])
 
