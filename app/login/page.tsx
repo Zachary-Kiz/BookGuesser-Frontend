@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import styles from "./Login.module.css"
 import FormInput from "@/components/FormInput/FormInput";
-import { login } from "@/api/userClient";
+import { login } from "@/app/api/userClient";
 import { LoginError } from "@/types/user";
 import { useAuth } from "@/contexts/AuthProvider";
 
@@ -45,7 +45,7 @@ export default function Login() {
             const success : boolean = await login(username, password);
             if (success) {
                 setIsLoggedIn(true);
-                router.replace("/profile")
+                router.replace(`/profile`)
             }
         } catch (e : any) {
             errorTest.exists = e.message;

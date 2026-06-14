@@ -1,4 +1,5 @@
 import { Guess } from "@/types/user";
+import { cookies } from "next/headers";
 
 export function handleGuess(guessed: boolean) : Guess {
     if (guessed === false) {
@@ -6,4 +7,10 @@ export function handleGuess(guessed: boolean) : Guess {
     } else {
         return Guess.Success;
     }
+}
+
+export async function isRefreshToken() {
+    const cookieStore = await cookies();
+    const refreshToken = cookieStore.get('refreshToken')?.value
+    return refreshToken
 }

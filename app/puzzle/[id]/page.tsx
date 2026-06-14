@@ -1,8 +1,8 @@
-import { getGuess } from "@/api/guess";
-import { getPastPuzzle } from "@/api/todayPuzzle";
-import { getUser } from "@/api/userServer";
+import { getGuess } from "@/app/api/guess";
+import { getPastPuzzle } from "@/app/api/todayPuzzle";
+import { getUser } from "@/app/api/userServer";
 import BookPage from "@/components/BookPage/BookPage";
-import { handleGuess } from "@/helpers/helper";
+import { handleGuess, isRefreshToken } from "@/helpers/helper";
 import { Guess, PlayerGuess } from "@/types/user";
 
 export default async function Puzzle({
@@ -16,13 +16,18 @@ export default async function Puzzle({
     let guesses : Array<string> = []
     let isGuessed = Guess.Guessing;
     const book = await getPastPuzzle(id);
-    const data = await getUser();
-    if (data) user = data['user']
-    const guess : PlayerGuess | undefined = await getGuess(user, id);
-    if (guess) {
-        guesses = guess['guesses'];
-        isGuessed = handleGuess(guess['guessed'])
+    const refreshToken = await isRefreshToken()
+
+    if (refreshToken) {
+        const data = await getUser();
+        if (data) user = data['user']
+        const guess : PlayerGuess | undefined = await getGuess(user, id);
+        if (guess) {
+            guesses = guess['guesses'];
+            isGuessed = handleGuess(guess['guessed'])
+        }
     }
+    
 
 
     return <BookPage book={book} username={user} id={id} guessed={isGuessed} prevGuesses={guesses}/>;

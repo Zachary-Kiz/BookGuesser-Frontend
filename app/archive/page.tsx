@@ -1,7 +1,7 @@
 import PuzzleLink from "@/components/PuzzleLink/PuzzleLink";
 import styles from "./Archive.module.css"
 
-import { getNumDays } from "@/api/archive"
+import { getNumDays } from "@/app/api/archive"
 
 export default async function Archive() {
 
