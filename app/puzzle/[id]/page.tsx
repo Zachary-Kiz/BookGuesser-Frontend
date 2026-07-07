@@ -1,4 +1,4 @@
-import { getGuess } from "@/app/api/guess";
+import { getFriendGuess, getGuess } from "@/app/api/guess";
 import { getPastPuzzle } from "@/app/api/todayPuzzle";
 import { getUser } from "@/app/api/userServer";
 import BookPage from "@/components/BookPage/BookPage";
@@ -15,12 +15,16 @@ export default async function Puzzle({
     let user = "";
     let guesses : Array<string> = []
     let isGuessed = Guess.Guessing;
+    let friendGuesses : PlayerGuess[] | undefined = undefined;
     const book = await getPastPuzzle(id);
     const refreshToken = await isRefreshToken()
 
     if (refreshToken) {
         const data = await getUser();
-        if (data) user = data['user']
+        if (data)  {
+            user = data['user']
+            friendGuesses = await getFriendGuess(id);
+        }
         const guess : PlayerGuess | undefined = await getGuess(user, id);
         if (guess) {
             guesses = guess['guesses'];
@@ -30,5 +34,5 @@ export default async function Puzzle({
     
 
 
-    return <BookPage book={book} username={user} id={id} guessed={isGuessed} prevGuesses={guesses}/>;
+    return <BookPage book={book} username={user} id={id} guessed={isGuessed} prevGuesses={guesses} friendGuesses={friendGuesses}/>;
 }

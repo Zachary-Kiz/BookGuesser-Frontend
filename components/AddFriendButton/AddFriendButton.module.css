@@ -1,0 +1,23 @@
+.friendButton {
+    color: var(--dark-brown);
+    padding : 5px;
+    cursor: pointer;
+    border-radius: 12px;
+    font-size: small;
+    border: 1px solid var(--dark-brown);
+    transition: 0.1s background-color ease-in-out;
+}
+
+.friendButton:hover {
+    background-color: var(--dark-brown);
+    color: white
+}
+
+.sentButton {
+    color: white;
+    background-color: var(--dark-brown);
+    padding : 5px;
+    border-radius: 12px;
+    font-size: small;
+    border: 1px solid var(--dark-brown);
+}

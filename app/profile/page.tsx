@@ -6,9 +6,7 @@ import { getUser } from "../api/userServer";
 import { isRefreshToken } from "@/helpers/helper";
 import FriendComponent from "@/components/FriendComponent/FriendComponent";
 
-export default async function Profile({params} : {
-    params: Promise<{ user: string }>;
-}) {
+export default async function Profile() {
 
     const refresh = await isRefreshToken()
     if (!refresh) redirect("/login")
@@ -26,7 +24,9 @@ export default async function Profile({params} : {
                 <div className="text-center"><b>Total Guesses Distribution</b></div>
                 <div>This chart shows the distribution of successful guesses across all daily puzzles. Each bar represents the number of times a puzzle was solved in a specific number of guesses.</div>
                  <ChartWrapper stats={userData['stats']}></ChartWrapper>
-                 <FriendComponent></FriendComponent>
+                 <h2 className="text-center mt-8"><b>Friends</b></h2>
+                 <div className="text-center">Add friends to immediately see their scores after guessing a book.</div>
+                 <FriendComponent username={userData['user']}></FriendComponent>
             </div>
            
             

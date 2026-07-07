@@ -9,17 +9,20 @@ import BookInfo from "@/components/BookInfo/BookInfo";
 import ShareButton from "../ShareButton/ShareButton";
 import { useAuth } from "@/contexts/AuthProvider";
 import { uploadGuess } from "@/app/api/guess";
-import { Guess } from "@/types/user";
+import { Guess, PlayerGuess } from "@/types/user";
+import GuessDisplay from "../GuessDisplay/GuessDisplay";
+import FriendResult from "../FriendResult/FriendResult";
 
 type BookPageType = {
     book: Book;
     username : string;
     id : string;
     prevGuesses?: Array<string>
-    guessed : Guess
+    guessed : Guess;
+    friendGuesses ?: Array<PlayerGuess>;
 }
 
-export default function BookPage({book, username, id, guessed, prevGuesses=[]} : BookPageType) {
+export default function BookPage({book, username, id, guessed, prevGuesses=[], friendGuesses} : BookPageType) {
 
     
     const { isLoggedIn } = useAuth();
@@ -79,6 +82,8 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[]} :
         []
     );
 
+    console.log(friendGuesses)
+
     return (
         <div className={styles.puzzleContainer}>
             <div className={styles.puzzle}>
@@ -98,19 +103,20 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[]} :
                 {isGuessed !== Guess.Guessing ? 
                     <div className="flex flex-col w-full justify-center items-center gap-4 mt-4">
                         <div className="flex flex-row  gap-2 items-center">
-                            {Array(6).fill(null).map((elem, index) => {
-                                
-                                return index < correctGuess ? 
-                                    <div key={`${bookTitle}_${index}`} className={styles.incorrectGuess}></div> 
-                                    : index > correctGuess ? 
-                                    <div key={`${bookTitle}_${index}`} className={styles.notGuess}></div> 
-                                    : 
-                                    <div key={`${bookTitle}_${index}`} className={styles.correctGuess}></div>
-                            })}
+                            <GuessDisplay correctGuess={correctGuess} bookTitle={bookTitle}/>
                             <ShareButton day={id} correctGuess={correctGuess}></ShareButton>
                         </div>
                         {isGuessed == Guess.Success && <div>You Got It!</div>}
                         {isGuessed == Guess.Failed && <div>Better Luck Next Time</div>}
+                        {friendGuesses && 
+                            <div className="w-full flex flex-col justify-center items-center">
+                                <b>Friends</b>
+                                {friendGuesses.map(guess => {
+                                    const friendCorrectGuess : number = guess.guesses.length - 1;
+                                    return <FriendResult correctGuess={friendCorrectGuess} username={guess.username} bookTitle={bookTitle}/>
+                                })}
+                            </div>
+                        }
                     </div>
                     :
                     <div>

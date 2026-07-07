@@ -1,0 +1,80 @@
+.queryHeader {
+    background-color: var(--medium-brown);
+    padding: 0.5rem;
+    border-start-start-radius: 20px;
+    border-start-end-radius: 20px;
+}
+
+.queryUsers {
+    background-color: white;
+    padding: 0.2rem;
+    border-radius: 20px;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 0.5rem;
+}
+
+.reqHeader {
+    background-color: var(--dark-brown);
+    color: white;
+    border-radius: 20px;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.userResults {
+    min-height: 150px;
+    background-color: white;
+    max-height: 150px;
+    overflow-y: scroll;
+}
+
+.user {
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--dark-brown);
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+}
+
+.notFound {
+    background-color: white;
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.yourReqs {
+    background-color: white;
+    min-height: 150px;
+    margin-top: 10px;
+}
+
+.requestButton {
+    color: var(--dark-brown);
+    padding : 5px;
+    cursor: pointer;
+    border-radius: 12px;
+    font-size: small;
+    border: 1px solid var(--dark-brown);
+    transition: 0.1s background-color ease-in-out;
+}
+
+.requestButton:hover {
+    background-color: var(--dark-brown);
+    color: white
+}
+
+.selectButton {
+    background-color: var(--dark-brown);
+    color: white;
+    padding : 5px;
+    cursor: pointer;
+    border-radius: 12px;
+    border: 1px solid var(--dark-brown);
+    font-size: small;
+}

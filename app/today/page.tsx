@@ -1,4 +1,4 @@
-import { getGuess } from "@/app/api/guess";
+import { getFriendGuess, getGuess } from "@/app/api/guess";
 import { getTodayPuzzle } from "@/app/api/todayPuzzle";
 import BookPage from "@/components/BookPage/BookPage";
 import { handleGuess, isRefreshToken } from "@/helpers/helper";
@@ -8,6 +8,7 @@ import { cookies } from "next/headers";
 
 export default async function Today() {
     let user = "";
+    let friendGuesses : PlayerGuess[] | undefined = undefined;
     let guesses : Array<string> = [];
     let isGuessed : Guess = Guess.Guessing;
     const data1 = await getTodayPuzzle();
@@ -18,6 +19,7 @@ export default async function Today() {
         const data = await getUser()
         if (data) {
             user = data['user']
+            friendGuesses = await getFriendGuess(puzzleId);
             const guess : PlayerGuess | undefined = await getGuess(user, puzzleId);
             if (guess) {
                 guesses = guess['guesses'];
@@ -27,6 +29,6 @@ export default async function Today() {
     }
     
 
-    return <BookPage book={book} username={user} id={puzzleId} guessed={isGuessed} prevGuesses={guesses}/>
+    return <BookPage book={book} username={user} id={puzzleId} guessed={isGuessed} prevGuesses={guesses} friendGuesses={friendGuesses}/>
     
 }

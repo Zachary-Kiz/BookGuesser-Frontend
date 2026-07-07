@@ -3,6 +3,8 @@
 import { requestFriend } from "@/app/api/friends"
 import { useState } from "react";
 
+import styles from "./AddFriendButton.module.css"
+
 interface AddFriendInterface {
     user : string;
 }
@@ -16,8 +18,10 @@ enum ButtonText {
 export default function AddFriendButton({user} : AddFriendInterface) {
 
     const [buttonText,setButtonText] = useState<ButtonText>(ButtonText.Add);
+    const isSent : boolean = buttonText === ButtonText.Sent;
 
     const handleAddFriend = async (user : string) => {
+        if (buttonText === ButtonText.Sent) return
         try {
             setButtonText(ButtonText.Load)
             await requestFriend(user)
@@ -28,6 +32,6 @@ export default function AddFriendButton({user} : AddFriendInterface) {
     }
 
     return (
-        <button onClick={() => handleAddFriend(user)}>{buttonText}</button>
+        <button className={isSent ? styles.sentButton : styles.friendButton} onClick={() => handleAddFriend(user)}>{buttonText}</button>
     )
 }

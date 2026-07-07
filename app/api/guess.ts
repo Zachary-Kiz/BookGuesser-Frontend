@@ -70,3 +70,32 @@ export async function getGuess( username : string, puzzleId : string) : Promise<
         throw err;
     }
 }
+
+export async function getFriendGuess( puzzleId : string) : Promise<Array<PlayerGuess> | undefined> {
+    
+    try {
+
+        const cookieStore = await cookies()
+        const accessToken = cookieStore.get('accessToken')?.value
+
+        const params = new URLSearchParams();
+
+        params.append("puzzleId", puzzleId)
+
+        const res = await fetch(`${BACKEND_API}/guess/friends?${params}`, {
+            headers: {
+                'Authorization' : `Bearer ${accessToken}`
+            },
+        });
+
+        if (!res.ok) {
+            return undefined;
+        }
+
+        return await res.json();
+    } catch (err) {
+        console.error("getGuess error:", err);
+
+        throw err;
+    }
+}
