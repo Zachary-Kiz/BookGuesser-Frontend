@@ -2,18 +2,20 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 80vh;
 }
 
 .loginBackground {
-    width: 40vw;
-    height: 80vh;
+    padding: 2rem;
     margin-top: 10px;
     border-radius: 10px;
     display: flex;
     gap : 10px;
     flex-direction: column;
-    align-items: center;
     font-family: Merriweather;
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .loginSubmit {
@@ -28,4 +30,16 @@
 
 .loginSubmit:hover {
     background-color: #341C02;
+}
+
+.createAccountLink {
+    color: var(--dark-brown);
+    text-decoration: underline solid var(--dark-brown);
+}
+
+@media (max-width : 480px) {
+    .loginSubmit {
+        width: 40vw;
+        padding: 8px;
+    }
 }

@@ -7,6 +7,7 @@ import styles from "./SignUp.module.css"
 import FormInput from "@/components/FormInput/FormInput";
 import { registerAccount } from "@/app/api/userClient";
 import { SignUpError } from "@/types/user";
+import Link from "next/link";
 
 export default function SignUp() {
     const [username, setUsername] = useState<string>("");
@@ -59,11 +60,12 @@ export default function SignUp() {
         <div className={styles.signContainer}>
             <div className={styles.signBackground}>
                 <div className="text-5xl">Sign Up</div>
+                <small>Already have an account? <Link className={styles.loginLink} href={"/login"}>Log In</Link></small>
                 {error.exists && <div className="">*{error.exists}</div>}
                 <FormInput setValue={setEmail} error={error.email} label="Enter Email:"></FormInput>
                 <FormInput setValue={setUsername} error={error.username} label="Enter Username:"></FormInput>
-                <FormInput setValue={setPassword} error={error.password} label="Enter Password"></FormInput>
-                <FormInput setValue={setRePass} error={error.rePass} label="Re-enter Password"></FormInput>
+                <FormInput setValue={setPassword} error={error.password} label="Enter Password" isPassword={true}></FormInput>
+                <FormInput setValue={setRePass} error={error.rePass} label="Re-enter Password" isPassword={true}></FormInput>
                 <button className={styles.signSubmit} onClick={() => handleSubmit()}>Submit</button>
             </div>
         </div>

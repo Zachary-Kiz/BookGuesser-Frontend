@@ -8,6 +8,7 @@ import FormInput from "@/components/FormInput/FormInput";
 import { login } from "@/app/api/userClient";
 import { LoginError } from "@/types/user";
 import { useAuth } from "@/contexts/AuthProvider";
+import Link from "next/link";
 
 export default function Login() {
 
@@ -43,10 +44,12 @@ export default function Login() {
 
         try {
             const success : boolean = await login(username, password);
-            if (success) {
-                setIsLoggedIn(true);
-                router.replace(`/profile`)
+            if (!success) {
+                setError({...error, "exists":"No account with this username/password exists"});
+                return;
             }
+            setIsLoggedIn(true);
+            router.replace(`/profile`)
         } catch (e : any) {
             errorTest.exists = e.message;
             setError(errorTest);
@@ -57,9 +60,10 @@ export default function Login() {
         <div className={styles.loginContainer}>
             <div className={styles.loginBackground}>
                 <div className="text-5xl">Login</div>
+                <small>Don't have a BookGuesser account? <Link className={styles.createAccountLink} href={"sign_up"}>Create an Account</Link></small>
                 {error.exists && <div>*{error.exists}</div>}
                 <FormInput setValue={setUsername} error={error.username} label="Enter Username:"></FormInput>
-                <FormInput setValue={setPassword} error={error.password} label="Enter Password"></FormInput>
+                <FormInput setValue={setPassword} error={error.password} label="Enter Password" isPassword={true}></FormInput>
                 <button className={styles.loginSubmit} onClick={() => handleSubmit()}>Submit</button>
             </div>
         </div>

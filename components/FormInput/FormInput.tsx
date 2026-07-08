@@ -2,9 +2,10 @@ interface InputReqs {
     label: string;
     error?: string;
     setValue: (event : any) => void;
+    isPassword?: boolean;
 }
 
-export default function FormInput({label, setValue, error=""} : InputReqs) {
+export default function FormInput({label, setValue, error="", isPassword=false} : InputReqs) {
 
     const handleChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)
@@ -14,7 +15,7 @@ export default function FormInput({label, setValue, error=""} : InputReqs) {
         <div>
             <label>{label}</label>
             <div className="flex flex-col">
-                <input onChange={(e) => handleChange(e)} className="p-1 border rounded-xl border-gray bg-white" type="text"></input>
+                <input type={isPassword ? "password" : "text"} onChange={(e) => handleChange(e)} className="p-1 border rounded-xl border-gray bg-white"></input>
                 {error && <small>*{error}</small>}
             </div>
             

@@ -56,6 +56,10 @@ export async function login(username: string, password : string) {
             credentials: 'include'
         });
 
+        if (res.status == 403) {
+            return false
+        }
+
         if (!res.ok) {
             let message = `Request failed: ${res.status}`;
 
