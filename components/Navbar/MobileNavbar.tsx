@@ -12,34 +12,36 @@ export default function MobileNavbar() {
     const { isLoggedIn } = useAuth();
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isBurger, setIsBurger] = useState<boolean>(true);
 
     const openMenu = () => {
         setIsOpen(prev => !prev);
+        setIsBurger(prev => !prev);
     }
 
     return (
         <>
             <div className="flex z-11 bg-background w-16 items-center md:hidden">
-                <BurgerIcon onClick={() => openMenu()}/>
+                <BurgerIcon isBurger={isBurger} onClick={() => openMenu()}/>
             </div>
             <div className={clsx(styles.mobileNav, {[styles.visibleNav] : isOpen})}>
-                <Link className={styles.mobileNavLink} href="/today">
+                <Link className={styles.mobileNavLink} onClick={() => openMenu()} href="/today">
                     Today
                 </Link>
-                <Link className={styles.mobileNavLink} href="/archive">
+                <Link onClick={() => openMenu()} className={styles.mobileNavLink} href="/archive">
                     Archive
                 </Link>
                 {isLoggedIn ? 
                     <>
-                        <Link className={styles.mobileNavLink} href="/profile">
+                        <Link onClick={() => openMenu()} className={styles.mobileNavLink} href="/profile">
                             Profile
                         </Link>
-                        <Link className={styles.mobileNavLink} href={"/logout"}>Log Out</Link>
+                        <Link onClick={() => openMenu()} className={styles.mobileNavLink} href={"/logout"}>Log Out</Link>
                     </>
                     :
                     <>
-                        <Link className={styles.mobileNavLink} href={"/login"}>Login</Link>
-                        <Link className={styles.mobileNavLink} href={"/sign_up"}>Sign Up</Link>
+                        <Link onClick={() => openMenu()} className={styles.mobileNavLink} href={"/login"}>Login</Link>
+                        <Link onClick={() => openMenu()} className={styles.mobileNavLink} href={"/sign_up"}>Sign Up</Link>
                     </>
                 }
             </div>
