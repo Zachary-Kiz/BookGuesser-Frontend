@@ -1,7 +1,7 @@
 "use client"
 
-import { searchBooks, debounce, getTodayPuzzle} from "@/app/api/todayPuzzle";
-import { useEffect, useMemo, useState } from "react";
+import { searchBooks} from "@/app/api/todayPuzzle";
+import { useEffect, useState } from "react";
 import styles from "./BookPage.module.css"
 import { Book, Level } from "@/types/book";
 import GuessResult from "@/components/GuessResult/GuessResult";
@@ -38,7 +38,6 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[], f
     const level : Level = isGuessed ? 6 : (guesses.length as Level);
     const correctGuess = isGuessed === Guess.Failed ? 7 : guesses.length - 1;
     const friendsGuessed : boolean = friendGuesses.length > 0;
-    console.log(friendsGuessed)
 
     async function getBookNames(query: string) {
         if (query.length <= 3) return;
@@ -77,13 +76,12 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[], f
         sendGuess()
     }, [isGuessed])
 
-    const debouncedSearch = useMemo(
-        () =>
-            debounce((val: string) => {
-                getBookNames(val);
-            }, 100),
-        []
-    );
+    useEffect(() => {
+        const getData = setTimeout(() => {
+            getBookNames(currentGuess)
+        }, 500)
+        return () => clearTimeout(getData)
+    }, [currentGuess])
 
     return (
         <div className={styles.puzzleContainer}>
@@ -140,7 +138,7 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[], f
                     :
                     <div>
                         <div className={styles.guessContainer}>
-                            <input placeholder="Enter book title..." className={styles.guessInput} list="books" type="text" value={currentGuess} onChange={(e) => {const val = e.target.value; setCurrentGuess(val); debouncedSearch(val)}}></input>
+                            <input placeholder="Enter book title..." className={styles.guessInput} list="books" type="text" value={currentGuess} onChange={(e) => {const val = e.target.value; setCurrentGuess(val);}}></input>
                             <button onClick={() => checkGuess(currentGuess)} className={styles.guessButton}>Submit</button>
                         </div>
                         {displayBooks && 

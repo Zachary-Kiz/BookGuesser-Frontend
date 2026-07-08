@@ -1,6 +1,6 @@
 "use client"
 
-import { acceptFriendReq, deleteFriendReq, getFriendReqs, getFriends, getUserList, requestFriend } from "@/app/api/friends"
+import { acceptFriendReq, deleteFriendReq, getFriendReqs, getFriends, getUserList } from "@/app/api/friends"
 import { useEffect, useState } from "react"
 import AddFriendButton from "../AddFriendButton/AddFriendButton"
 
@@ -21,8 +21,10 @@ export default function FriendComponent({username} : FriendComponentType) {
     const [yourReqs, setYourReqs] = useState<Array<string>>([])
     const [friendList, setFriendList] = useState<Array<string>>([])
     const [friendDisplay, setFriendDisplay] = useState<FriendDisplayType>(FriendDisplayType.Search)
+    const [searchValue, setSearchValue] = useState<string>("");
 
     const queryUsers = async (user : string) => {
+        if (user == "") return;
         const userList = await getUserList(user)
         if (userList) setUsers(userList)
     }
@@ -66,6 +68,13 @@ export default function FriendComponent({username} : FriendComponentType) {
         queryReqs()
     }, [])
 
+    useEffect(() => {
+        const getData = setTimeout(() => {
+            queryUsers(searchValue)
+        }, 500);
+        return () => clearTimeout(getData);
+    }, [searchValue])
+
     return (
         <div>
             <div className="flex flex-row gap-4 items-center justify-center p-6">
@@ -76,7 +85,7 @@ export default function FriendComponent({username} : FriendComponentType) {
             {friendDisplay === FriendDisplayType.Search ? 
                 <div className={styles.queryHeader}>
                     <div >
-                        <input placeholder="Enter friend username" className={styles.queryUsers} type="text" onChange={(e) => queryUsers(e.target.value)}></input>
+                        <input placeholder="Enter friend username" className={styles.queryUsers} type="text" onChange={(e) => setSearchValue(e.target.value)}></input>
                     </div>
                     <div className={styles.userResults}>
                     {users.map(user => {
