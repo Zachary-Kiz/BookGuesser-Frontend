@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     z-index: 0;
+    margin-bottom: 20px;
 }
 
 .puzzleButtons {
@@ -107,5 +108,10 @@
 
     .imageSize {
         height: 60vh;
+    }
+
+    .friendsButton {
+        width: 40%;
+        padding: 8px;
     }
 }

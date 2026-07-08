@@ -1,6 +1,6 @@
 .puzzleLink {
     display: flex;
-    width: 18rem;
+    width: 17rem;
     height: calc(var(--spacing) * 12);
     background-color: var(--dark-brown);
     color: white;
@@ -18,7 +18,7 @@
 
 @media (max-width : 480px) {
     .puzzleLink {
-        width: 4.5rem;
-        height: 4.5rem;
+        width: 5.5rem;
+        height: 5.5rem;
     }
 }

@@ -120,14 +120,14 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[], f
                                     <div>
                                         {isLoggedIn ? 
                                             <div className="flex flex-col justify-center items-center">
-                                                <div className="w-md text-center p-3">
+                                                <div className="sm:w-md text-center p-3">
                                                     None of your friends have guessed yet today! Come back later, or add more friends to see their results!
                                                 </div>
                                                 <button onClick={() => redirect("/profile")} className={styles.friendsButton}>Add Friends</button>
                                             </div>
                                             :
                                             <div className="flex flex-col justify-center items-center">
-                                                <div className="w-md text-center p-3">
+                                                <div className="sm:w-md text-center p-3">
                                                     To see your friend's results, create an account and login! You'll be able to see all of your friends results instantly, without needing to share them.
                                                 </div>
                                                 <button onClick={() => redirect("/sign_up")} className={styles.friendsButton}>Create Account</button>
