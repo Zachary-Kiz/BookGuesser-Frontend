@@ -26,7 +26,7 @@ export default function LogOut() {
 
     return (
         <div className="flex flex-col justify-center items-center h-[90vh]">
-            <div className="shadow p-6 rounded-2xl flex flex-col items-center gap-8 max-w-11/12 sm:max-w-1/2">
+            <div className="bg-white shadow p-12 rounded-2xl flex flex-col items-center gap-8 max-w-11/12 md:max-w-1/2 sm:max-w-2/5">
                 <h2 className="text-3xl text-bold font-(--font-merriweather) text-center"><b>Are you sure you want to log out?</b></h2>
                 <div>We'll miss you :(</div>
                 <div className="flex flex-row gap-4">
