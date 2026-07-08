@@ -12,6 +12,7 @@ import { uploadGuess } from "@/app/api/guess";
 import { Guess, PlayerGuess } from "@/types/user";
 import GuessDisplay from "../GuessDisplay/GuessDisplay";
 import FriendResult from "../FriendResult/FriendResult";
+import { redirect } from "next/navigation";
 
 type BookPageType = {
     book: Book;
@@ -22,7 +23,7 @@ type BookPageType = {
     friendGuesses ?: Array<PlayerGuess>;
 }
 
-export default function BookPage({book, username, id, guessed, prevGuesses=[], friendGuesses} : BookPageType) {
+export default function BookPage({book, username, id, guessed, prevGuesses=[], friendGuesses=[]} : BookPageType) {
 
     
     const { isLoggedIn } = useAuth();
@@ -36,6 +37,8 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[], f
     const displayBooks = searchRes.length !== 0;
     const level : Level = isGuessed ? 6 : (guesses.length as Level);
     const correctGuess = isGuessed === Guess.Failed ? 7 : guesses.length - 1;
+    const friendsGuessed : boolean = friendGuesses.length > 0;
+    console.log(friendsGuessed)
 
     async function getBookNames(query: string) {
         if (query.length <= 3) return;
@@ -82,8 +85,6 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[], f
         []
     );
 
-    console.log(friendGuesses)
-
     return (
         <div className={styles.puzzleContainer}>
             <div className={styles.puzzle}>
@@ -108,15 +109,33 @@ export default function BookPage({book, username, id, guessed, prevGuesses=[], f
                         </div>
                         {isGuessed == Guess.Success && <div>You Got It!</div>}
                         {isGuessed == Guess.Failed && <div>Better Luck Next Time</div>}
-                        {friendGuesses && 
                             <div className="w-full flex flex-col justify-center items-center">
                                 <b>Friends</b>
-                                {friendGuesses.map(guess => {
-                                    const friendCorrectGuess : number = guess.guesses.length - 1;
-                                    return <FriendResult correctGuess={friendCorrectGuess} username={guess.username} bookTitle={bookTitle}/>
-                                })}
+                                {friendsGuessed ? 
+                                    friendGuesses.map(guess => {
+                                        const friendCorrectGuess : number = guess.guesses.length - 1;
+                                        return <FriendResult key={`${guess.username}_${bookTitle}`} correctGuess={friendCorrectGuess} username={guess.username} bookTitle={bookTitle}/>
+                                    })
+                                    :
+                                    <div>
+                                        {isLoggedIn ? 
+                                            <div className="flex flex-col justify-center items-center">
+                                                <div className="w-md text-center p-3">
+                                                    None of your friends have guessed yet today! Come back later, or add more friends to see their results!
+                                                </div>
+                                                <button onClick={() => redirect("/profile")} className={styles.friendsButton}>Add Friends</button>
+                                            </div>
+                                            :
+                                            <div className="flex flex-col justify-center items-center">
+                                                <div className="w-md text-center p-3">
+                                                    To see your friend's results, create an account and login! You'll be able to see all of your friends results instantly, without needing to share them.
+                                                </div>
+                                                <button onClick={() => redirect("/sign_up")} className={styles.friendsButton}>Create Account</button>
+                                            </div>
+                                            }
+                                    </div>
+                            }
                             </div>
-                        }
                     </div>
                     :
                     <div>

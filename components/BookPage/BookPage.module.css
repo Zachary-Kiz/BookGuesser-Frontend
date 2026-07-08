@@ -72,6 +72,21 @@
     height: 70vh;
 }
 
+.friendsButton {
+    background-color: var(--dark-brown);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    width: 30%;
+    margin-bottom: 1rem;
+}
+
+.friendsButton:hover {
+    background-color: #341C02;
+}
+
 
 
 @media (max-width : 480px) {
