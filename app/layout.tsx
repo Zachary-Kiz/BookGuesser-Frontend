@@ -16,8 +16,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BookGuesser",
-  description: "Try to name the book in 6 guesses or less!",
+  title: "BookGuesser - Daily Book Puzzle Game",
+  description:
+      "Guess the book from clues in this daily puzzle game. Test your book knowledge with BookGuesser.",
+  keywords: [
+      "BookGuesser",
+      "book guessing game",
+      "daily puzzle",
+      "books game",
+  ],
+  openGraph: {
+      title: "BookGuesser - Daily Book Puzzle Game",
+      description:
+          "A daily puzzle game where you guess books from clues.",
+      url: "https://bookguesser.app",
+      siteName: "BookGuesser",
+      type: "website",
+  },
 };
 
 export default async function RootLayout({
