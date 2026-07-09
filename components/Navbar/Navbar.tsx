@@ -9,9 +9,9 @@ export default async function Navbar () {
     return (
         <div>
             <div className={styles.navContainer}>
-                <div className="w-full bg-background z-11 pl-8">
+                <Link href={"/today"} className="w-full bg-background z-11 pl-8">
                     BookGuesser
-                </div>
+                </Link>
                 <div className="text-2xl flex-row items-center pr-20 hidden md:flex">
                     <Link className={styles.navLink} href={"/today"}>Today</Link>
                     <Link className={styles.navLink} href={"/archive"}>Archive</Link>
