@@ -130,7 +130,7 @@ export default function FriendComponent({username} : FriendComponentType) {
                         })}</div>}
                         {friendList.length == 0 && 
                             <div className={styles.notFound}>
-                                No Requests Found!
+                                Try Adding Some Friends!
                             </div>
                         }
                     </div>
