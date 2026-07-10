@@ -3,6 +3,7 @@
 Link to project: [BookGuesser.app](https://bookguesser.app/today)
 
 Link to Backend: [BookGuesser-Backend](https://github.com/Zachary-Kiz/BookGuesserApp)
+
 Link to Daily Puzzle Upload Pipeline: [BookGuesser-Pipeline](https://github.com/Zachary-Kiz/BookGuesser-Scraper)
 
 ## Overview
