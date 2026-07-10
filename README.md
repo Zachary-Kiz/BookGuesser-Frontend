@@ -2,6 +2,9 @@
 
 Link to project: [BookGuesser.app](https://bookguesser.app/today)
 
+Link to Backend: [BookGuesser-Backend](https://github.com/Zachary-Kiz/BookGuesserApp)
+Link to Daily Puzzle Upload Pipeline: [BookGuesser-Pipeline](https://github.com/Zachary-Kiz/BookGuesser-Scraper)
+
 ## Overview
 
 BookGuesser is a daily puzzle game where players attempt to identify a book based on a pixelated cover image. Each day, a new book is selected, and users have six guesses to determine the correct title. With each incorrect guess, the cover becomes progressively clearer, giving players more clues while maintaining the challenge.
