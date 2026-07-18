@@ -24,6 +24,7 @@ export const metadata: Metadata = {
       "book guessing game",
       "daily puzzle",
       "books game",
+      "Book Guesser"
   ],
   openGraph: {
       title: "BookGuesser - Daily Book Puzzle Game",
