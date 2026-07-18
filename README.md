@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BookGuesser Frontend
 
-## Getting Started
+Link to project: [BookGuesser.app](https://bookguesser.app/today)
 
-First, run the development server:
+Link to Backend: [BookGuesser-Backend](https://github.com/Zachary-Kiz/BookGuesserApp)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Link to Daily Puzzle Upload Pipeline: [BookGuesser-Pipeline](https://github.com/Zachary-Kiz/BookGuesser-Scraper)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Overview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+BookGuesser is a daily puzzle game where players attempt to identify a book based on a pixelated cover image. Each day, a new book is selected, and users have six guesses to determine the correct title. With each incorrect guess, the cover becomes progressively clearer, giving players more clues while maintaining the challenge.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This repository contains the frontend application for BookGuesser, built with modern web technologies to provide a responsive and interactive user experience.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- Daily book cover guessing game
+- Progressive image reveal system with six levels of pixelation
+- User authentication and persistent sessions
+- Player statistics and score tracking
+- Friend system for comparing scores with other users
+- Responsive design optimized for desktop and mobile devices
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technical Overview
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The frontend was developed using:
 
-## Deploy on Vercel
+- **Next.js** - React framework for building the application and managing routing
+- **React** - Component-based UI development
+- **TypeScript** - Type-safe frontend development
+- **Tailwind CSS** - Responsive styling and UI design
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The frontend communicates with a Spring Boot backend through RESTful APIs to handle:
+- User authentication
+- Daily puzzle retrieval
+- Guess validation
+- User statistics
+- Friend management
