@@ -1,6 +1,15 @@
 import { MetadataRoute } from "next";
+import { getNumDays } from "./api/archive";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    const puzzles = await getNumDays();
+    const puzzleList = [];
+    for (let i = 1; i <= puzzles; i++) {
+        puzzleList.push({
+            url: `https://bookguesser.app/puzzle/${i}`,
+            lastModified: new Date()
+        })
+    }
     return [
         {
             url: "https://bookguesser.app",
@@ -34,5 +43,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             url: "https://bookguesser.app/logout",
             lastModified: new Date(),
         },
+        ...puzzleList
     ];
 }
